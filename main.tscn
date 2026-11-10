@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://wis3g6ykc1t6"]
+
+[ext_resource type="Script" uid="uid://ccnak1a63b4ko" path="res://Main.cs" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://drif0727rof0g" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://b6fm2cs0s20em" path="res://Game.cs" id="2_lquwl"]
+[ext_resource type="Texture2D" uid="uid://vrhxnuseqyly" path="res://icon.svg" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://di67tmisktw46" path="res://Button.cs" id="4_1bvp3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fk5vo"]
+size = Vector2(1283, 121)
+
+[node name="Node2D" type="Node2D" unique_id=1651976448]
+process_mode = 3
+script = ExtResource("1_0xm2m")
+
+[node name="Game" type="Node2D" parent="." unique_id=2004901102]
+process_mode = 1
+script = ExtResource("2_lquwl")
+
+[node name="ObstacleSpawner" type="Node2D" parent="Game" unique_id=1933141379]
+position = Vector2(1300, 325)
+
+[node name="Player" parent="Game" unique_id=820271639 instance=ExtResource("1_ig7tw")]
+position = Vector2(92, 195)
+
+[node name="Top" type="StaticBody2D" parent="Game" unique_id=1355227036]
+
+[node name="Sprite2D" type="Sprite2D" parent="Game/Top" unique_id=241008994]
+position = Vector2(579, -31)
+scale = Vector2(9.96875, 1)
+texture = ExtResource("3_h2yge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Top" unique_id=502617680]
+position = Vector2(583.5, -31.5)
+shape = SubResource("RectangleShape2D_fk5vo")
+
+[node name="Bottom" type="StaticBody2D" parent="Game" unique_id=542814497]
+position = Vector2(0, 700)
+
+[node name="Sprite2D" type="Sprite2D" parent="Game/Bottom" unique_id=1406791079]
+position = Vector2(579, -31)
+scale = Vector2(9.96875, 1)
+texture = ExtResource("3_h2yge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/Bottom" unique_id=420735467]
+position = Vector2(583.5, -31.5)
+shape = SubResource("RectangleShape2D_fk5vo")
+
+[node name="deathmenu" type="Control" parent="Game" unique_id=1071338704]
+process_mode = 2
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Game/deathmenu" unique_id=1581150269]
+layout_mode = 0
+offset_left = 382.0
+offset_top = 348.0
+offset_right = 646.0
+offset_bottom = 426.0
+theme_override_font_sizes/font_size = 25
+text = "restart"
+script = ExtResource("4_1bvp3")
+
+[node name="Label" type="Label" parent="Game/deathmenu" unique_id=1645747943]
+layout_mode = 0
+offset_left = 370.0
+offset_top = 142.0
+offset_right = 630.0
+offset_bottom = 299.0
+theme_override_font_sizes/font_size = 40
+text = "you died
+
+please restart"
+
+[node name="highscorelmao" type="Label" parent="Game/deathmenu" unique_id=1021873763]
+layout_mode = 0
+offset_left = 340.0
+offset_top = 462.0
+offset_right = 717.0
+offset_bottom = 535.0
+theme_override_font_sizes/font_size = 40
+text = "highscore:"
+
+[node name="pausemenu" type="Control" parent="Game" unique_id=410446965]
+process_mode = 2
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Game/pausemenu" unique_id=805352332]
+layout_mode = 0
+offset_left = 382.0
+offset_top = 348.0
+offset_right = 646.0
+offset_bottom = 426.0
+theme_override_font_sizes/font_size = 25
+text = "unpause"
+script = ExtResource("4_1bvp3")
+
+[node name="Label" type="Label" parent="Game/pausemenu" unique_id=734333007]
+layout_mode = 0
+offset_left = 370.0
+offset_top = 142.0
+offset_right = 630.0
+offset_bottom = 299.0
+theme_override_font_sizes/font_size = 40
+text = "the game is paused"
+
+[node name="score" type="Control" parent="Game" unique_id=1996351802]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="scoretext" type="Label" parent="Game/score" unique_id=593156012]
+layout_mode = 0
+offset_right = 250.5
+offset_bottom = 23.0
+scale = Vector2(2, 2)
+text = "0"
+
+[node name="timescore" type="Label" parent="Game/score" unique_id=386077063]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 552.0
+offset_right = 257.5
+offset_bottom = 575.0
+scale = Vector2(2, 2)
+text = "time score: 0"
+
+[connection signal="PlayerDied" from="Game/Player" to="Game" method="OnPlayerDied"]
+[connection signal="button_down" from="Game/deathmenu/Button" to="." method="OnButtonDown"]
+[connection signal="button_down" from="Game/pausemenu/Button" to="Game" method="PauseButton"]

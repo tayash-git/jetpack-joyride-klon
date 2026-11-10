@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://8vf035n0ggsi"]
+
+[ext_resource type="Script" uid="uid://bdneoskkdotib" path="res://Obstacle.cs" id="1_aubd6"]
+[ext_resource type="Texture2D" uid="uid://0ttie7smidkm" path="res://obstacle.png" id="1_sl1jc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fk5vo"]
+radius = 58.30952
+
+[node name="Obstacle" type="StaticBody2D" unique_id=220001668]
+script = ExtResource("1_aubd6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2020909601]
+texture = ExtResource("1_sl1jc")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1135878981]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=748449607]
+shape = SubResource("CircleShape2D_fk5vo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=759217231]
+shape = SubResource("CircleShape2D_fk5vo")
+
+[connection signal="body_entered" from="Area2D" to="." method="OnObstacleTouch"]
